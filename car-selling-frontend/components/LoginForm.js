@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 const LoginForm = () => {
   const [error, setError] = useState("");
   const router = useRouter();
@@ -23,10 +23,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (values) => {
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        values
-      );
+      const res = await axios.post(`${apiBaseUrl}/api/auth/login`, values);
       localStorage.setItem("token", res.data.token);
       router.push("/car");
     } catch (err) {

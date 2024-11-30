@@ -15,6 +15,7 @@ import * as Yup from "yup";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 const CarForm = () => {
   const [pictures, setPictures] = useState([]);
   const [error, setError] = useState("");
@@ -63,7 +64,7 @@ const CarForm = () => {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.post("http://localhost:5000/api/cars/add", formData, {
+      await axios.post(`${apiBaseUrl}/api/cars/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "x-auth-token": token,
