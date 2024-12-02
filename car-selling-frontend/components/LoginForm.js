@@ -5,7 +5,7 @@ import { TextField, Button, Container, Typography, Box } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const LoginForm = () => {
   const [error, setError] = useState("");
