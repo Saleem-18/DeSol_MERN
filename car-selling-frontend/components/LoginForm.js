@@ -4,7 +4,9 @@ import { useRouter } from "next/router";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 const LoginForm = () => {
   const [error, setError] = useState("");
   const router = useRouter();
@@ -21,7 +23,7 @@ const LoginForm = () => {
     password: Yup.string().required("Password is required"),
   });
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const res = await axios.post(`${apiBaseUrl}/api/auth/login`, values);
       localStorage.setItem("token", res.data.token);
@@ -29,6 +31,8 @@ const LoginForm = () => {
     } catch (err) {
       console.error(err);
       setError("Invalid credentials");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -59,7 +63,7 @@ const LoginForm = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ errors, touched }) => (
+          {({ isSubmitting }) => (
             <Form>
               <Field
                 as={TextField}
@@ -87,6 +91,7 @@ const LoginForm = () => {
                 color="primary"
                 fullWidth
                 style={{ marginTop: "20px" }}
+                disabled={isSubmitting}
               >
                 Login
               </Button>
