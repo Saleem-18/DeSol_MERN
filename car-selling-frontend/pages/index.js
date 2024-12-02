@@ -5,6 +5,7 @@ export default function Home() {
   const router = useRouter();
 
   const handleLogin = () => {
+    console.log("Login button clicked");
     router.push("/login");
   };
 
