@@ -15,12 +15,17 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
-app.use(cors());
+// Updated CORS configuration
+const corsOptions = {
+  origin: ["http://localhost:3000", "https://de-sol-mern-frontend.vercel.app"],
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/cars", carRoutes);
 
-// Add a route for the root URL
 app.get("/", (req, res) => {
   res.send("Server is up and running!");
 });
