@@ -1,8 +1,8 @@
 const express = require("express");
-const { addCar } = require("../controllers/carController");
-const authMiddleware = require("../middleware/authMiddleware");
 const router = express.Router();
+const carController = require("../controllers/carController");
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/add", authMiddleware, addCar);
+router.post("/add", authMiddleware, carController.addCar);
 
 module.exports = router;

@@ -1,7 +1,6 @@
-const multer = require("multer");
 const s3 = require("../s3");
-const path = require("path");
 const Car = require("../models/Car");
+const multer = require("multer");
 require("dotenv").config();
 
 const storage = multer.memoryStorage();
@@ -13,6 +12,10 @@ exports.addCar = (req, res) => {
 
     const { model, price, phone, city } = req.body;
     const imageUrls = [];
+
+    if (!req.files) {
+      return res.status(400).json({ msg: "No files uploaded" });
+    }
 
     for (const file of req.files) {
       const params = {

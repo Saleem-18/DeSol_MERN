@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const carRoutes = require("./routes/carRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -25,6 +26,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/cars", carRoutes);
+app.use("/api", uploadRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server is up and running!");
