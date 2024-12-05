@@ -5,9 +5,12 @@ require("dotenv").config();
 const storage = multer.memoryStorage();
 const upload = multer({ storage }).single("file");
 
-exports.uploadFile = (req, res, next) => {
+exports.uploadFile = (req, res) => {
   upload(req, res, async (err) => {
-    if (err) return res.status(500).json({ msg: "Image upload failed" });
+    if (err) {
+      console.error("Multer error:", err);
+      return res.status(500).json({ msg: "Image upload failed" });
+    }
 
     const params = {
       Bucket: process.env.AWS_S3_BUCKET,
@@ -20,6 +23,7 @@ exports.uploadFile = (req, res, next) => {
       const data = await s3.upload(params).promise();
       res.json({ url: data.Location });
     } catch (err) {
+      console.error("S3 upload error:", err);
       res.status(500).json({ msg: "Error uploading to S3" });
     }
   });
