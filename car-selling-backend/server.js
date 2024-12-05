@@ -18,7 +18,7 @@ mongoose
 
 // Updated CORS configuration
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://de-sol-mern-frontend.vercel.app"],
+  origin: ["http://localhost:3000", "https://desol-frontend-coral.vercel.app"],
   credentials: true,
 };
 app.use(cors(corsOptions));
